@@ -43,6 +43,7 @@
           '';
           buildInputs = with pkgs; [
             docker-compose
+            python312
             gnumake
             docker
             poetry
