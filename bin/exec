@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+import subprocess
+import typer
+
+app = typer.Typer(no_args_is_help=True)
+
+
+def sh(command: str) -> None:
+    subprocess.run(command, shell=True, check=True)
+
+
+@app.command("status")
+def status():
+    """get a status"""
+    print("asaok")
+
+
+@app.command("run")
+def run():
+    """run app from cli"""
+    print("whatever")
+
+
+if __name__ == "__main__":
+    app()
