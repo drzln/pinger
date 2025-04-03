@@ -1,2 +1,4 @@
 class App:
-    pass
+    @classmethod
+    def run(cls):
+        pass
