@@ -12,6 +12,7 @@ packages = [{ include = "pinger", from = "src" }]
 python = ">=3.9,<4.0"
 pydantic = "^2.11.2"
 typer = "^0.15.2"
+pyyaml = "^6.0.2"
 
 [tool.poetry.scripts]
 lcs = "pinger.cli:cli"
