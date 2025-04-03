@@ -18,6 +18,12 @@ def build_pypi():
     sh("poetry build")
 
 
+@app.command("pinger_rb")
+def build_pypi():
+    typer.echo("generating pinger.rb for homebrew")
+    sh("poet pinger > pinger.rb")
+
+
 @app.command("publish_pypi")
 def publish_pypi():
     sh("poetry publish")
