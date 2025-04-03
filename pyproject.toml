@@ -22,5 +22,5 @@ homebrew-pypi-poet = "^0.10.0"
 pinger = "pinger.cli:cli"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
