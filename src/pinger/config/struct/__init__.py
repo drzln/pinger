@@ -4,18 +4,7 @@ import os
 
 
 class AppConfig(BaseModel):
-    athena_workgroup_name: str
-    athena_results_bucket: str
-    ecr_repository_name: str
-    glue_database_name: str
-    state_machine_arn: str
-    wait_seconds: int
-    aws_profile: str
-    aws_region: str
-    app_name: str
-    app_fqdn: str
-    app_host: str
-    app_port: int
+    name: str
 
 
 class Config:
