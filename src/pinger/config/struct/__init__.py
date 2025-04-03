@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 import yaml
-import os
+from pathlib import Path
+from typing import Optional, Dict
 
 
 class AppConfig(BaseModel):
@@ -8,54 +9,41 @@ class AppConfig(BaseModel):
 
 
 class Config:
-    _yaml = None
+    _config: Optional[AppConfig] = None
+    _raw: Optional[Dict] = None
 
     @classmethod
-    def yaml(cls):
-        cls.being_tested(cls.local_cli())
-        filename = ""
-        if cls.being_tested():
-            filename = f"envs/{cls.env()}/config.yml"
-        else:
-            filename = f"/var/task/envs/{cls.env()}/config.yml"
-
-        print("USING FILENAME")
-        print(filename)
-        if cls._yaml is None:
-            with open(filename) as ymlfile:
-                cls._yaml = yaml.safe_load(ymlfile)
-        return cls._yaml
-
-    _env = None
-
-    @classmethod
-    def env(cls, setting=None):
-        if cls._env is None:
-            if setting is None:
-                env = os.getenv("ENV")
-            else:
-                env = setting
-            cls._env = env
-            if cls._env is None:
-                raise Exception("no ENV variable set!")
-        return cls._env
-
-    _being_tested = None
-
-    @classmethod
-    def being_tested(cls, setting: bool = False) -> bool:
-        if cls._being_tested is None:
-            cls._being_tested = setting
-        return cls._being_tested
-
-    @classmethod
-    def local_cli(cls):
-        return os.getenv("LOCAL_CLI") == "true"
-
-    _config = None
-
-    @classmethod
-    def config(cls):
+    def config(cls) -> AppConfig:
         if cls._config is None:
-            cls._config = AppConfig(**cls.yaml())
+            cls._raw = cls.load_config()
+            cls._config = AppConfig(**cls._raw)
         return cls._config
+
+    @classmethod
+    def raw(cls) -> Dict:
+        if cls._raw is None:
+            cls._raw = cls.load_config()
+        return cls._raw
+
+    @staticmethod
+    def load_yaml_file(path: Path) -> Dict:
+        if path.exists():
+            with open(path, "r") as f:
+                return yaml.safe_load(f) or {}
+        return {}
+
+    @classmethod
+    def load_config(cls) -> Dict:
+        # Ordered by priority (lowest first)
+        locations = [
+            Path("/etc/pinger/config.yml"),
+            Path.home() / ".config/pinger/config.yml",
+            Path(".pinger.yml"),
+        ]
+
+        merged: Dict = {}
+        for path in locations:
+            data = cls.load_yaml_file(path)
+            merged.update(data)
+
+        return merged
