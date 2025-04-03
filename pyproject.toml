@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "pinger"
 authors = ["engineering <engineering@pinger.com>"]
 license = "allrightsreserved"
+homepage = "https://github.com/drzln/pinger"
+repository = "https://github.com/drzln/pinger"
+keywords = ["pinger", "platform", "engineering"]
 readme = "README.md"
 package-mode = true
 packages = [{ include = "pinger", from = "src" }]
