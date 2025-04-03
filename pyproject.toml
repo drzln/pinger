@@ -8,13 +8,6 @@ readme = "README.md"
 package-mode = true
 packages = [{ include = "pinger", from = "src" }]
 
-[tool.poetry.dependencies]
-pydantic = "^2.10.6"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-pytest-describe = "^2.2.0"
-
 [tool.poetry.scripts]
 lcs = "pinger.cli:cli"
 
