@@ -13,12 +13,12 @@ def cleanup_pypi_build():
     sh("rm -rf dist")
 
 
-@app.command("status")
+@app.command("build_pypi")
 def build_pypi():
     sh("poetry build")
 
 
-@app.command("run")
+@app.command("publish_pypi")
 def publish_pypi():
     sh("poetry publish")
     cleanup_pypi_build()
