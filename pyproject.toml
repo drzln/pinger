@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pinger"
+name = "pinger-cli"
 version = "0.1.0"
 description = "pinger"
 authors = ["engineering <engineering@pinger.com>"]
