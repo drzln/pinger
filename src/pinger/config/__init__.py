@@ -1,4 +1,4 @@
-from lcs.config.struct import Config
+from pinger.config.struct import Config
 
 
 def config():
