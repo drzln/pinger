@@ -1,5 +1,5 @@
 import typer
-from lcs.app import app
+from pinger.app import app
 
 
 this_cli = typer.Typer(no_args_is_help=True)
