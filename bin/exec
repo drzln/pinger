@@ -9,16 +9,19 @@ def sh(command: str) -> None:
     subprocess.run(command, shell=True, check=True)
 
 
+def cleanup_pypi_build():
+    sh("rm -rf dist")
+
+
 @app.command("status")
-def status():
-    """get a status"""
-    print("asaok")
+def build_pypi():
+    sh("poetry build")
 
 
 @app.command("run")
-def run():
-    """run app from cli"""
-    print("whatever")
+def publish_pypi():
+    sh("poetry publish")
+    cleanup_pypi_build()
 
 
 if __name__ == "__main__":
